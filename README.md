@@ -1,86 +1,83 @@
-# TCRSystem — 教学课程资源管理系统
+# TCRSystem — TCR 免疫组库序列分析系统
 
-[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.3-brightgreen)](https://spring.io/)
-[![Vue.js](https://img.shields.io/badge/Vue.js-2.x-4FC08D)](https://vuejs.org/)
-[![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)](https://www.mysql.com/)
-[![Redis](https://img.shields.io/badge/Redis-latest-red)](https://redis.io/)
-[![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.8+-3776AB?logo=python&logoColor=white)](https://python.org/)
+[![Django](https://img.shields.io/badge/Django-4.x-092E20?logo=django)](https://djangoproject.com/)
+[![Vue.js](https://img.shields.io/badge/Vue.js-3.x-4FC08D?logo=vue.js)](https://vuejs.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue)](LICENSE)
 
 ## 项目背景
 
-高校教学中，课程资料的分发、作业的收集批改、教材任务的下达跟踪，长期依赖微信群/QQ群/邮件等分散渠道，存在 **资料版本混乱、作业收集效率低、进度难以追踪** 等问题。
+T 细胞受体（TCR）是免疫系统识别抗原的核心分子。在肿瘤免疫治疗、传染病研究、自身免疫疾病等领域，研究人员需要分析大量 TCR 测序数据来了解免疫应答状态。然而现有的 TCR 分析工具大多基于命令行，操作门槛高，可视化能力弱，不利于临床和科研人员快速获取分析结果。
 
-本项目针对这些痛点，开发了一套前后端分离的教学课程资源管理平台：
-- 管理员可以统一管理用户、课程、审核教材并追踪任务完成度
-- 教师可以上传教材、发布作业、在线批改、查看反馈
-- 学生可以浏览课程资料、下载教材、在线提交作业
+本项目构建了一个基于 Web 的 TCR 序列分析平台，提供从数据上传、序列比对、克隆型统计到可视化报告的一站式分析流程。
 
-通过 WebSocket 实时推送消息通知，各角色能及时获取动态，避免信息遗漏。
+## 效果展示
+
+### 系统主界面
+![系统主界面](docs/dashboard.png)
+
+支持 TCR 序列数据的上传、在线分析和结果导出，数据表格展示 CDR3 序列、V/J 基因使用、频率等关键信息。
+
+### 分析报告
+![分析报告](docs/analysis-report.png)
+
+自动生成 V-J 基因配对热图、CDR3 长度分布、克隆型频率排序等免疫组库分析图表。
+
+## 核心功能
+
+| 功能 | 说明 |
+|------|------|
+| 数据上传 | 支持 FASTA、TSV 等格式的 TCR 测序数据 |
+| 序列分析 | CDR3 区域提取、V/J 基因注释、克隆型识别 |
+| 统计分析 | 多样性指数计算、基因使用频率统计 |
+| 可视化 | V-J 配对热图、长度分布、丰度排序等图表 |
+| 报告导出 | 一键生成 PDF/Excel 格式分析报告 |
 
 ## 技术栈
 
 | 层级 | 技术 |
 |------|------|
-| 前端 | Vue.js 2.x + Element UI + Vuex + Vue Router + Axios |
-| 后端 | Spring Boot 2.7.3 + Spring Security + MyBatis-Plus |
-| 数据库 | MySQL 8.0 |
-| 缓存 | Redis |
-| 文件存储 | MinIO |
-| 身份认证 | JWT |
-| 消息推送 | WebSocket |
-| 接口文档 | Knife4j |
-
-## 功能概览
-
-**管理员端：** 用户管理（教师/学生/教务管理员）、课程与专业管理、教材审核与统计、教材任务下发与完成度追踪
-
-**教师端：** 课程教材上传与管理、作业发布与批改、教材任务响应、课程反馈查看、资源共享
-
-**学生端：** 课程浏览与教材下载、作业查看与在线提交、课程反馈交流
+| 前端 | Vue.js 3 + Element Plus + ECharts |
+| 后端 | Django + Django REST Framework |
+| 分析引擎 | Python（BioPython、pandas、scikit-learn） |
+| 数据库 | MySQL |
+| 部署 | Nginx + Gunicorn |
 
 ## 项目结构
 
 ```
 TCRSystem/
-├── backend/                # 后端（Spring Boot）
-│   ├── src/main/java/
-│   │   ├── controller/     # 接口层
-│   │   ├── service/        # 业务逻辑
-│   │   ├── mapper/         # 数据访问
-│   │   ├── entity/         # 数据实体
-│   │   ├── config/         # 配置（Security、Redis、WebSocket）
-│   │   └── utils/          # 工具类（JWT、文件处理）
-│   └── pom.xml
-├── frontend/               # 前端（Vue.js）
+├── backend/                    # Django 后端
+│   ├── apps/
+│   │   ├── analysis/           # 分析模块
+│   │   ├── users/              # 用户管理
+│   │   └── reports/            # 报告生成
+│   ├── config/                 # 配置
+│   ├── manage.py
+│   └── requirements.txt
+├── frontend/                   # Vue.js 前端
 │   ├── src/
-│   │   ├── views/          # 页面
-│   │   ├── components/     # 公共组件
-│   │   ├── router/         # 路由
-│   │   ├── store/          # 状态管理
-│   │   └── api/            # 接口封装
+│   │   ├── views/              # 页面组件
+│   │   ├── components/         # 通用组件
+│   │   └── api/                # API 封装
 │   └── package.json
-└── tcr_system.sql          # 数据库初始化脚本
+└── README.md
 ```
 
 ## 快速开始
 
-**环境要求：** JDK 8+、Node.js 14+、MySQL 8.0+、Redis 6.0+、MinIO
-
 ```bash
-# 1. 初始化数据库
-mysql -u root -p < tcr_system.sql
-
-# 2. 启动后端（先修改 application.yml 中数据库/Redis/MinIO 配置）
+# 后端
 cd backend
-mvn spring-boot:run
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py runserver
 
-# 3. 启动前端
+# 前端
 cd frontend
 npm install
-npm run serve
+npm run dev
 ```
-
-启动后访问 http://localhost:8080 进入系统，接口文档地址 http://localhost:8081/doc.html
 
 ## 开源协议
 
