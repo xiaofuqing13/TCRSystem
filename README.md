@@ -1,4 +1,4 @@
-<![CDATA[[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.3-brightgreen)](https://spring.io/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.3-brightgreen)](https://spring.io/)
 [![Vue.js](https://img.shields.io/badge/Vue.js-2.x-4FC08D)](https://vuejs.org/)
 [![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)](https://www.mysql.com/)
 [![Redis](https://img.shields.io/badge/Redis-latest-red)](https://redis.io/)
@@ -113,4 +113,3 @@ npm run serve
 ## 📜 License
 
 This project is licensed under the [MIT License](LICENSE).
-]]>
