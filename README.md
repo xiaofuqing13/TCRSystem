@@ -43,7 +43,7 @@
 
 一键生成包含所有分析结果的图表报告，支持 PDF 导出。
 
-![分析报告](docs/analysis_report.png)
+![分析报告](docs/analysis-report.png)
 
 ## 技术栈
 
