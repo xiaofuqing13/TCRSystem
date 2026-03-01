@@ -1,0 +1,10 @@
+// 提高下拉框的z-index
+.higher-z-select {
+  z-index: 9999 !important;
+}
+
+// 确保下拉框可见
+.el-select__popper,
+.el-picker__popper {
+  z-index: 9999 !important;
+} 
