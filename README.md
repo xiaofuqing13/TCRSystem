@@ -1,5 +1,8 @@
 # TCR 免疫组库分析系统
 
+![Vue](https://img.shields.io/badge/Vue.js-4FC08D?logo=vuedotjs&logoColor=white) ![Java](https://img.shields.io/badge/Java-ED8B00?logo=openjdk&logoColor=white) ![License](https://img.shields.io/badge/License-MIT-green)
+
+
 > 基于生物信息学的 T 细胞受体（TCR）免疫组库深度分析平台
 
 ## 项目目的
